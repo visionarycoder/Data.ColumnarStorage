@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+    <PropertyGroup>
+        <AnalysisLevel>Latest</AnalysisLevel>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Archival.Internal\Archival.Internal.csproj" />
+  </ItemGroup>
+
 </Project>
