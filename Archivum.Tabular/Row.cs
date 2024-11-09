@@ -1,4 +1,4 @@
-namespace Archival.Tabular;
+namespace Archivum.Tabular;
 
 public class Row(Table table, ColumnCollection columns)
 {

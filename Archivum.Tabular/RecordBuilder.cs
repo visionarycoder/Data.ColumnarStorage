@@ -1,4 +1,4 @@
-namespace Archival.Tabular;
+namespace Archivum.Tabular;
 
 internal class RecordBuilder
 {

@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace Archival.Tabular;
+namespace Archivum.Tabular;
 
 public class RowCollection : IEnumerable<Row>
 {

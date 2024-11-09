@@ -7,7 +7,9 @@
   </PropertyGroup>
 
     <PropertyGroup>
-        <AnalysisLevel>Latest</AnalysisLevel>
+        <AnalysisLevel>latest</AnalysisLevel>
+        <EnableAnalyzers>true</EnableAnalyzers>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     </PropertyGroup>
 

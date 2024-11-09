@@ -7,12 +7,14 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <AnalysisLevel>Latest</AnalysisLevel>
+        <AnalysisLevel>latest</AnalysisLevel>
+        <EnableAnalyzers>true</EnableAnalyzers>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Archival.Internal\Archival.Internal.csproj" />
+        <ProjectReference Include="..\Archivum.Nucleus\Archivum.Nucleus.csproj" />
     </ItemGroup>
 
 </Project>

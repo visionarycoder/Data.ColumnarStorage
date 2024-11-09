@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace Archival.Tabular;
+namespace Archivum.Tabular;
 
 public class Table(string name)
 {

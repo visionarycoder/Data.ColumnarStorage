@@ -1,5 +1,5 @@
 // Entity.cs
-namespace Archival.Objectus;
+namespace Archivum.Objectus;
 
 public class Entity
 {

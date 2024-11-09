@@ -1,4 +1,4 @@
-namespace Archival.Objectus;
+namespace Archivum.Objectus;
 
 public class Property
 {

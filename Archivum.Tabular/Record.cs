@@ -1,6 +1,6 @@
-using Archival.Internal;
+using Archivum.Nucleus;
 
-namespace Archival.Tabular;
+namespace Archivum.Tabular;
 
 internal class Record : IDisposable
 {
