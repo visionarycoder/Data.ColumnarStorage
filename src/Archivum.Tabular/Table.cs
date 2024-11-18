@@ -2,10 +2,10 @@ using System.Collections.ObjectModel;
 
 namespace Archivum.Tabular;
 
-public class Table(string name)
+public class Table(string name, params Column[] columns)
 {
 
-    private readonly ColumnCollection columns = [];
+    private readonly ColumnCollection columns = new ColumnCollection(columns);
     private readonly RowCollection rows = [];
     private readonly Dictionary<(int rowIndex, int columnIndex), Record> records = new();
     private int nextRowIndex = 0;
@@ -14,12 +14,11 @@ public class Table(string name)
 
     public ColumnCollection Columns => columns;
     public RowCollection Rows => rows;
-    
+
     internal ReadOnlyCollection<Record> Records => records.Values.ToList().AsReadOnly();
 
-
     public Table()
-        :this(string.Empty)
+        : this(string.Empty)
     {
     }
 
@@ -75,8 +74,8 @@ public class Table(string name)
         }
         else
         {
-                
+
         }
-        
+
     }
 }

@@ -13,7 +13,7 @@ public class RowCollection : IEnumerable<Row>
 
     public void Add(Row row)
     {
-        if (rows.Any(r => r.instanceId == row.instanceId))
+        if (rows.Any(r => r.InstanceId == row.InstanceId))
         {
             throw new InvalidOperationException("Row already exists.");
         }

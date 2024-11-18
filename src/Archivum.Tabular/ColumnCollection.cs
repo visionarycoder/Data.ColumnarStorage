@@ -2,10 +2,10 @@ using System.Collections;
 
 namespace Archivum.Tabular;
 
-public class ColumnCollection : IEnumerable<Column>
+public class ColumnCollection(params Column[] columns) : IEnumerable<Column>
 {
 
-    private readonly List<Column> columns = [];
+    private readonly List<Column> columns = columns.ToList() ?? [];
 
     public int Count => columns.Count;
 
@@ -67,4 +67,5 @@ public class ColumnCollection : IEnumerable<Column>
     {
         return GetEnumerator();
     }
+
 }

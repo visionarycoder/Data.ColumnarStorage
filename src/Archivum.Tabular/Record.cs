@@ -5,32 +5,30 @@ namespace Archivum.Tabular;
 internal class Record : IDisposable
 {
 
-    private Guid? datumId;
+    private Guid? dataId;
     private bool disposed = false;
 
     public object? Value
     {
-        get => datumId.HasValue ? Data.Get(datumId.Value).Value : null;
+        get
+        {
+            if (dataId.HasValue)
+            {
+                var storedValue = Data.Instance.GetValue(dataId.Value);
+                return storedValue == DBNull.Value ? null : storedValue;
+            }
+            dataId = Data.Instance.AddOrGetId(DBNull.Value);
+            return null;
+        }
         set
         {
-            if (datumId.HasValue)
-            {
-                Data.Get(datumId.Value).RemoveReference(this);
-            }
-
             if (value == null)
-            {
-                datumId = null;
-            }
-            else
-            {
-                var datum = Data.AddOrGet(value);
-                datumId = datum.Id;
-                datum.AddReference(this);
-            }
+                dataId = Data.Instance.AddOrGetId(DBNull.Value);
         }
     }
-    public Type Type => datumId.HasValue ? Data.Get(datumId.Value).Type : typeof(object);
+
+    public Type Type => dataId.HasValue ? Data.Instance.GetValue(dataId.Value)?.GetType() ?? typeof(object) : typeof(object);
+
     public string Name { get; }
 
     internal Record(RecordBuilder builder)
@@ -45,7 +43,7 @@ internal class Record : IDisposable
     {
         if (Value == null || Value == DBNull.Value)
         {
-            throw new InvalidOperationException("Value is null.");
+            return default(T);
         }
         return (T)Convert.ChangeType(Value, typeof(T));
     }
@@ -90,20 +88,18 @@ internal class Record : IDisposable
         if (disposing)
         {
             // Release managed resources
-            if (datumId.HasValue)
+            if (dataId.HasValue)
             {
-                Data.Get(datumId.Value).RemoveReference(this);
-                datumId = null;
+                Data.Instance.TryRemove(dataId.Value);
+                dataId = null;
             }
         }
         // Release unmanaged resources if any
         disposed = true;
-
     }
 
     ~Record()
     {
         Dispose(false);
     }
-
 }

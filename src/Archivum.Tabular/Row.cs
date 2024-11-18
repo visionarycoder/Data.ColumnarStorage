@@ -3,9 +3,10 @@ namespace Archivum.Tabular;
 public class Row(Table table, ColumnCollection columns)
 {
 
-    protected internal Table table = table;
-    protected internal Guid instanceId = Guid.NewGuid();
-    
+    private protected Table table = table;
+
+    public Guid InstanceId { get; } = Guid.NewGuid();
+
     public ColumnCollection Columns { get; } = columns;
 
     public int RowIndex => table.Rows.IndexOf(this);
