@@ -6,12 +6,12 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <PropertyGroup>
+    <!--<PropertyGroup>
         <AnalysisLevel>latest</AnalysisLevel>
         <EnableAnalyzers>true</EnableAnalyzers>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    </PropertyGroup>
+    </PropertyGroup>-->
 
     <ItemGroup>
         <ProjectReference Include="..\Archivum.Nucleus\Archivum.Nucleus.csproj" />

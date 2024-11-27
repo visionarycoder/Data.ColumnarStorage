@@ -1,7 +1,12 @@
-[TestClass]
+using Xunit;
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+
+namespace Archivum.Tabular.UnitTests;
+
+
 public class TableTests
 {
-    [TestMethod]
+    [Fact]
     public void AddColumn_ShouldAddColumn()
     {
         // Arrange
@@ -12,11 +17,11 @@ public class TableTests
         table.AddColumn(column);
 
         // Assert
-        Assert.AreEqual(1, table.Columns.Count);
-        Assert.AreEqual(column, table.Columns[0]);
+        Assert.Equal(1, table.Columns.Count);
+        Assert.Equal(column, table.Columns[0]);
     }
 
-    [TestMethod]
+    [Fact]
     public void NewRow_ShouldReturnNewRow()
     {
         // Arrange
@@ -26,11 +31,11 @@ public class TableTests
         var row = table.NewRow();
 
         // Assert
-        Assert.IsNotNull(row);
-        Assert.AreEqual(table, row.GetType().GetField("table", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(row));
+        Assert.NotNull(row);
+        Assert.Equal(table, row.GetType().GetField("table", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(row));
     }
 
-    [TestMethod]
+    [Fact]
     public void AddRow_ShouldAddRowToTable()
     {
         // Arrange
@@ -41,12 +46,11 @@ public class TableTests
         table.AddRow(row);
 
         // Assert
-        Assert.AreEqual(1, table.Rows.Count);
-        Assert.AreEqual(row, table.Rows[0]);
+        Assert.Equal(1, table.Rows.Count);
+        Assert.Equal(row, table.Rows[0]);
     }
 
-    [TestMethod]
-    [ExpectedException(typeof(InvalidOperationException))]
+    [Fact]
     public void AddRow_ShouldThrowExceptionWhenRowBelongsToAnotherTable()
     {
         // Arrange
@@ -54,11 +58,11 @@ public class TableTests
         var table2 = new Table("TestTable2", new Column("Column1"));
         var row = table1.NewRow();
 
-        // Act
-        table2.AddRow(row);
+        // Act & Assert
+        Assert.Throws<InvalidOperationException>(() => table2.AddRow(row));
     }
 
-    [TestMethod]
+    [Fact]
     public void GetColumnIndex_ShouldReturnCorrectIndex()
     {
         // Arrange
@@ -68,10 +72,10 @@ public class TableTests
         var index = table.GetColumnIndex("Column2");
 
         // Assert
-        Assert.AreEqual(1, index);
+        Assert.Equal(1, index);
     }
 
-    [TestMethod]
+    [Fact]
     public void Get_ShouldReturnCorrectValue()
     {
         // Arrange
@@ -84,11 +88,10 @@ public class TableTests
         var value = table.Get(0, 0);
 
         // Assert
-        Assert.AreEqual("TestValue", value);
+        Assert.Equal("TestValue", value);
     }
 
-    [TestMethod]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    [Fact]
     public void Get_ShouldThrowExceptionWhenValueIsNotSet()
     {
         // Arrange
@@ -96,11 +99,11 @@ public class TableTests
         var row = table.NewRow();
         table.AddRow(row);
 
-        // Act
-        table.Get(0, 0);
+        // Act & Assert
+        Assert.Throws<ArgumentOutOfRangeException>(() => table.Get(0, 0));
     }
 
-    [TestMethod]
+    [Fact]
     public void Set_ShouldSetCorrectValue()
     {
         // Arrange
@@ -112,6 +115,6 @@ public class TableTests
         table.Set(0, 0, "TestValue");
 
         // Assert
-        Assert.AreEqual("TestValue", row[0]);
+        Assert.Equal("TestValue", row[0]);
     }
 }

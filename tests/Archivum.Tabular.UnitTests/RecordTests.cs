@@ -1,135 +1,142 @@
-using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Archivum.Tabular;
-using Archivum.Nucleus;
+using Xunit;
 
-namespace Archivum.Tabular.Tests
+namespace Archivum.Tabular.UnitTests
 {
-    [TestClass]
+
     public class RecordTests
     {
-        [TestMethod]
+        [Fact]
         public void Constructor_ShouldInitializeProperties()
         {
             // Arrange
-            var builder = new RecordBuilder { Name = "TestRecord", Value = "TestValue" };
+            var builder = new RecordBuilder()
+                .SetName("TestRecord")
+                .SetValue("TestValue");
 
             // Act
-            var record = new Record(builder);
+            var record = builder.Build();
 
             // Assert
-            Assert.AreEqual("TestRecord", record.Name);
-            Assert.AreEqual("TestValue", record.Value);
+            Assert.Equal("TestRecord", record.Name);
+            Assert.Equal("TestValue", record.Value);
         }
 
-        [TestMethod]
+        [Fact]
         public void Value_ShouldReturnNullWhenDataIdIsNull()
         {
             // Arrange
-            var builder = new RecordBuilder { Name = "TestRecord" };
-            var record = new Record(builder);
+            var builder = new RecordBuilder()
+                .SetName("TestRecord");
+            var record = builder.Build();
 
             // Act
             var value = record.Value;
 
             // Assert
-            Assert.IsNull(value);
+            Assert.Null(value);
         }
 
-        [TestMethod]
+        [Fact]
         public void Value_ShouldReturnStoredValue()
         {
             // Arrange
-            var builder = new RecordBuilder { Name = "TestRecord", Value = "TestValue" };
-            var record = new Record(builder);
+            var builder = new RecordBuilder()
+                .SetName("TestRecord")
+                .SetValue("TestValue");
+            var record = builder.Build();
 
             // Act
             var value = record.Value;
 
             // Assert
-            Assert.AreEqual("TestValue", value);
+            Assert.Equal("TestValue", value);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsNull_ShouldReturnTrueWhenValueIsNull()
         {
             // Arrange
-            var builder = new RecordBuilder { Name = "TestRecord" };
-            var record = new Record(builder);
+            var builder = new RecordBuilder();
+            var record = builder.Build();
 
             // Act
             var isNull = record.IsNull;
 
             // Assert
-            Assert.IsTrue(isNull);
+            Assert.True(isNull);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsNull_ShouldReturnFalseWhenValueIsNotNull()
         {
             // Arrange
-            var builder = new RecordBuilder { Name = "TestRecord", Value = "TestValue" };
-            var record = new Record(builder);
+            var builder = new RecordBuilder()
+                .SetName("TestRecord")
+                .SetValue("TestValue");
+            var record = builder.Build();
 
             // Act
             var isNull = record.IsNull;
 
             // Assert
-            Assert.IsFalse(isNull);
+            Assert.False(isNull);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetValue_ShouldReturnCorrectValue()
         {
             // Arrange
-            var builder = new RecordBuilder { Name = "TestRecord", Value = "TestValue" };
-            var record = new Record(builder);
-
+            var builder = new RecordBuilder()
+                .SetName("TestRecord")
+                .SetValue("TestValue");
+            var record = builder.Build();
             // Act
             var value = record.GetValue();
 
             // Assert
-            Assert.AreEqual("TestValue", value);
+            Assert.Equal("TestValue", value);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void GetValue_ShouldThrowExceptionWhenValueIsNull()
         {
             // Arrange
-            var builder = new RecordBuilder { Name = "TestRecord" };
-            var record = new Record(builder);
+            var builder = new RecordBuilder()
+                .SetName("TestRecord");
+            var record = builder.Build();
 
-            // Act
-            record.GetValue();
+            // Act & Assert
+            Assert.Throws<InvalidOperationException>(() => record.GetValue());
         }
 
-        [TestMethod]
+        [Fact]
         public void GetValueT_ShouldReturnCorrectValue()
         {
             // Arrange
-            var builder = new RecordBuilder { Name = "TestRecord", Value = 123 };
-            var record = new Record(builder);
-
+            var builder = new RecordBuilder()
+                .SetName("TestRecord")
+                .SetValue(123);
+            var record = builder.Build();
             // Act
             var value = record.GetValue<int>();
 
             // Assert
-            Assert.AreEqual(123, value);
+            Assert.Equal(123, value);
         }
 
-        [TestMethod]
+        [Fact]
         public void Dispose_ShouldReleaseResources()
         {
             // Arrange
-            var builder = new RecordBuilder { Name = "TestRecord", Value = "TestValue" };
-            var record = new Record(builder);
-
+            var builder = new RecordBuilder()
+                .SetName("TestRecord")
+                .SetValue("TestValue");
+            var record = builder.Build();
             // Act
             record.Dispose();
 
             // Assert
-            Assert.IsTrue(record.IsNull);
+            Assert.True(record.IsNull);
         }
     }
 }

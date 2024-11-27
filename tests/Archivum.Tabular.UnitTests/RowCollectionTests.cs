@@ -1,7 +1,10 @@
-[TestClass]
+using Xunit;
+
+namespace Archivum.Tabular.UnitTests;
+
 public class RowCollectionTests
 {
-    [TestMethod]
+    [Fact]
     public void Add_ShouldAddRow()
     {
         // Arrange
@@ -13,12 +16,11 @@ public class RowCollectionTests
         collection.Add(row);
 
         // Assert
-        Assert.AreEqual(1, collection.Count);
-        Assert.AreEqual(row, collection[0]);
+        Assert.Equal(1, collection.Count);
+        Assert.Equal(row, collection[0]);
     }
 
-    [TestMethod]
-    [ExpectedException(typeof(InvalidOperationException))]
+    [Fact]
     public void Add_ShouldThrowExceptionWhenRowAlreadyExists()
     {
         // Arrange
@@ -28,10 +30,12 @@ public class RowCollectionTests
 
         // Act
         collection.Add(row);
-        collection.Add(row);
+
+        // Assert
+        Assert.Throws<InvalidOperationException>(() => collection.Add(row));
     }
 
-    [TestMethod]
+    [Fact]
     public void IndexOf_ShouldReturnCorrectIndex()
     {
         // Arrange
@@ -47,6 +51,6 @@ public class RowCollectionTests
         var index = collection.IndexOf(row2);
 
         // Assert
-        Assert.AreEqual(1, index);
+        Assert.Equal(1, index);
     }
 }

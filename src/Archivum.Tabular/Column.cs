@@ -1,5 +1,6 @@
 namespace Archivum.Tabular;
 
+
 public class Column(string columnName, Type dataType, IsReadOnlyValue isReadOnly, IsUniqueValue isUnique, AllowDbNullValue allowDbNull)
 {
 

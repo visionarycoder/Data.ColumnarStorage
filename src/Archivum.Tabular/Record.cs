@@ -1,12 +1,13 @@
 using Archivum.Nucleus;
+// ReSharper disable UnusedMember.Global
 
 namespace Archivum.Tabular;
 
-internal class Record : IDisposable
+internal sealed class Record : IDisposable
 {
 
     private Guid? dataId;
-    private bool disposed = false;
+    private bool disposed;
 
     public object? Value
     {
@@ -27,7 +28,9 @@ internal class Record : IDisposable
         }
     }
 
-    public Type Type => dataId.HasValue ? Data.Instance.GetValue(dataId.Value)?.GetType() ?? typeof(object) : typeof(object);
+    public Type Type => dataId.HasValue 
+        ? Data.Instance.GetValue(dataId.Value).GetType() 
+        : typeof(object);
 
     public string Name { get; }
 
@@ -43,7 +46,7 @@ internal class Record : IDisposable
     {
         if (Value == null || Value == DBNull.Value)
         {
-            return default(T);
+            throw new InvalidOperationException("Value is null.");
         }
         return (T)Convert.ChangeType(Value, typeof(T));
     }
@@ -57,7 +60,7 @@ internal class Record : IDisposable
         return Value;
     }
 
-    public string GetString() => GetValue<string>();
+    public string GetString() => GetValue<string>() ?? string.Empty;
     public int GetInt32() => GetValue<int>();
     public bool GetBoolean() => GetValue<bool>();
     public DateTime GetDateTime() => GetValue<DateTime>();
@@ -69,7 +72,7 @@ internal class Record : IDisposable
     public short GetInt16() => GetValue<short>();
     public long GetInt64() => GetValue<long>();
     public char GetChar() => GetValue<char>();
-    public byte[] GetBytes() => GetValue<byte[]>();
+    public byte[] GetBytes() => GetValue<byte[]>() ?? Array.Empty<byte>();
 
     // Implement IDisposable
     public void Dispose()
@@ -78,7 +81,7 @@ internal class Record : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (disposed)
         {

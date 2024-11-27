@@ -40,7 +40,7 @@ public class Table(string name, params Column[] columns)
     public void AddRow(Row row)
     {
 
-        if (this != row.table)
+        if (this != row.Table)
         {
             throw new InvalidOperationException("Row belongs to another table.");
         }

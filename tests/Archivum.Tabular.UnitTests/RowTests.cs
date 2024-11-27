@@ -1,7 +1,11 @@
-[TestClass]
+using Xunit;
+
+namespace Archivum.Tabular.UnitTests;
+
+
 public class RowTests
 {
-    [TestMethod]
+    [Fact]
     public void Indexer_ShouldGetAndSetValues()
     {
         // Arrange
@@ -13,10 +17,10 @@ public class RowTests
         row[0] = "TestValue";
 
         // Assert
-        Assert.AreEqual("TestValue", row[0]);
+        Assert.Equal("TestValue", row[0]);
     }
 
-    [TestMethod]
+    [Fact]
     public void IndexerByName_ShouldGetAndSetValues()
     {
         // Arrange
@@ -28,6 +32,6 @@ public class RowTests
         row["Column1"] = "TestValue";
 
         // Assert
-        Assert.AreEqual("TestValue", row["Column1"]);
+        Assert.Equal("TestValue", row["Column1"]);
     }
 }

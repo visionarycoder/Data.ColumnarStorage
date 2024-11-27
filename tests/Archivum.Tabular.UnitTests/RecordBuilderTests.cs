@@ -1,7 +1,10 @@
-[TestClass]
+using Xunit;
+
+namespace Archivum.Tabular.UnitTests;
+
 public class RecordBuilderTests
 {
-    [TestMethod]
+    [Fact]
     public void SetName_ShouldSetName()
     {
         // Arrange
@@ -11,10 +14,10 @@ public class RecordBuilderTests
         builder.SetName("TestName");
 
         // Assert
-        Assert.AreEqual("TestName", builder.Name);
+        Assert.Equal("TestName", builder.Name);
     }
 
-    [TestMethod]
+    [Fact]
     public void SetType_ShouldSetType()
     {
         // Arrange
@@ -25,10 +28,10 @@ public class RecordBuilderTests
         builder.SetType(type);
 
         // Assert
-        Assert.AreEqual(type, builder.Type);
+        Assert.Equal(type, builder.Type);
     }
 
-    [TestMethod]
+    [Fact]
     public void SetValue_ShouldSetValue()
     {
         // Arrange
@@ -39,10 +42,10 @@ public class RecordBuilderTests
         builder.SetValue(value);
 
         // Assert
-        Assert.AreEqual(value, builder.Value);
+        Assert.Equal(value, builder.Value);
     }
 
-    [TestMethod]
+    [Fact]
     public void Build_ShouldReturnRecordWithSetProperties()
     {
         // Arrange
@@ -55,8 +58,8 @@ public class RecordBuilderTests
         var record = builder.Build();
 
         // Assert
-        Assert.AreEqual("TestName", record.Name);
-        Assert.AreEqual("TestValue", record.Value);
-        Assert.AreEqual(typeof(string), record.Type);
+        Assert.Equal("TestName", record.Name);
+        Assert.Equal("TestValue", record.Value);
+        Assert.Equal(typeof(string), record.Type);
     }
 }

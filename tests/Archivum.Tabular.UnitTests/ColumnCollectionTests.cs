@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Archivum.Tabular;
+using Xunit;
 
-namespace Archivum.Tabular.Tests
+namespace Archivum.Tabular.UnitTests
 {
-    [TestClass]
-    public class ColumnCollectionTests
+    
+public class ColumnCollectionTests
     {
-        [TestMethod]
+        [Fact]
         public void Constructor_ShouldInitializeWithGivenColumns()
         {
             // Arrange
@@ -19,12 +16,12 @@ namespace Archivum.Tabular.Tests
             var columnCollection = new ColumnCollection(column1, column2);
 
             // Assert
-            Assert.AreEqual(2, columnCollection.Count);
-            Assert.AreEqual(column1, columnCollection[0]);
-            Assert.AreEqual(column2, columnCollection[1]);
+            Assert.Equal(2, columnCollection.Count);
+            Assert.Equal(column1, columnCollection[0]);
+            Assert.Equal(column2, columnCollection[1]);
         }
 
-        [TestMethod]
+        [Fact]
         public void Add_ShouldAddColumn()
         {
             // Arrange
@@ -35,23 +32,22 @@ namespace Archivum.Tabular.Tests
             columnCollection.Add(column);
 
             // Assert
-            Assert.AreEqual(1, columnCollection.Count);
-            Assert.AreEqual(column, columnCollection[0]);
+            Assert.Equal(1, columnCollection.Count);
+            Assert.Equal(column, columnCollection[0]);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void Add_ShouldThrowExceptionWhenColumnAlreadyExists()
         {
             // Arrange
             var column = new Column("Column1", typeof(string), IsReadOnlyValue.No, IsUniqueValue.No, AllowDbNullValue.Yes);
             var columnCollection = new ColumnCollection(column);
 
-            // Act
-            columnCollection.Add(column);
+            // Act & Assert
+            Assert.Throws<InvalidOperationException>(() => columnCollection.Add(column));
         }
 
-        [TestMethod]
+        [Fact]
         public void AddRange_ShouldAddMultipleColumns()
         {
             // Arrange
@@ -63,12 +59,12 @@ namespace Archivum.Tabular.Tests
             columnCollection.AddRange(new[] { column1, column2 });
 
             // Assert
-            Assert.AreEqual(2, columnCollection.Count);
-            Assert.AreEqual(column1, columnCollection[0]);
-            Assert.AreEqual(column2, columnCollection[1]);
+            Assert.Equal(2, columnCollection.Count);
+            Assert.Equal(column1, columnCollection[0]);
+            Assert.Equal(column2, columnCollection[1]);
         }
 
-        [TestMethod]
+        [Fact]
         public void Remove_ShouldRemoveColumnByName()
         {
             // Arrange
@@ -79,11 +75,11 @@ namespace Archivum.Tabular.Tests
             var result = columnCollection.Remove("Column1");
 
             // Assert
-            Assert.IsTrue(result);
-            Assert.AreEqual(0, columnCollection.Count);
+            Assert.True(result);
+            Assert.Equal(0, columnCollection.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void Remove_ShouldReturnFalseWhenColumnDoesNotExist()
         {
             // Arrange
@@ -93,10 +89,10 @@ namespace Archivum.Tabular.Tests
             var result = columnCollection.Remove("NonExistentColumn");
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.False(result);
         }
 
-        [TestMethod]
+        [Fact]
         public void Contains_ShouldReturnTrueWhenColumnExists()
         {
             // Arrange
@@ -107,10 +103,10 @@ namespace Archivum.Tabular.Tests
             var result = columnCollection.Contains("Column1");
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.True(result);
         }
 
-        [TestMethod]
+        [Fact]
         public void Contains_ShouldReturnFalseWhenColumnDoesNotExist()
         {
             // Arrange
@@ -120,10 +116,10 @@ namespace Archivum.Tabular.Tests
             var result = columnCollection.Contains("NonExistentColumn");
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.False(result);
         }
 
-        [TestMethod]
+        [Fact]
         public void Clear_ShouldRemoveAllColumns()
         {
             // Arrange
@@ -135,10 +131,10 @@ namespace Archivum.Tabular.Tests
             columnCollection.Clear();
 
             // Assert
-            Assert.AreEqual(0, columnCollection.Count);
+            Assert.Equal(0, columnCollection.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void IndexOf_ShouldReturnCorrectIndex()
         {
             // Arrange
@@ -150,10 +146,10 @@ namespace Archivum.Tabular.Tests
             var index = columnCollection.IndexOf(column2);
 
             // Assert
-            Assert.AreEqual(1, index);
+            Assert.Equal(1, index);
         }
 
-        [TestMethod]
+        [Fact]
         public void Clone_ShouldReturnExactCopy()
         {
             // Arrange
@@ -165,9 +161,9 @@ namespace Archivum.Tabular.Tests
             var clonedCollection = columnCollection.Clone();
 
             // Assert
-            Assert.AreEqual(columnCollection.Count, clonedCollection.Count);
-            Assert.AreEqual(columnCollection[0], clonedCollection[0]);
-            Assert.AreEqual(columnCollection[1], clonedCollection[1]);
+            Assert.Equal(columnCollection.Count, clonedCollection.Count);
+            Assert.Equal(columnCollection[0], clonedCollection[0]);
+            Assert.Equal(columnCollection[1], clonedCollection[1]);
         }
     }
 }

@@ -1,13 +1,11 @@
-using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Archivum.Tabular;
+using Xunit;
 
-namespace Archivum.Tabular.Tests
+namespace Archivum.Tabular.UnitTests
 {
-    [TestClass]
-    public class ColumnTests
+    
+public class ColumnTests
     {
-        [TestMethod]
+        [Fact]
         public void Constructor_ShouldInitializeProperties()
         {
             // Arrange
@@ -21,30 +19,30 @@ namespace Archivum.Tabular.Tests
             var column = new Column(columnName, dataType, isReadOnly, isUnique, allowDbNull);
 
             // Assert
-            Assert.AreEqual(columnName, column.ColumnName);
-            Assert.AreEqual(dataType, column.DataType);
-            Assert.IsTrue(column.ReadOnly);
-            Assert.IsTrue(column.Unique);
-            Assert.IsFalse(column.AllowDbNull);
+            Assert.Equal(columnName, column.ColumnName);
+            Assert.Equal(dataType, column.DataType);
+            Assert.True(column.ReadOnly);
+            Assert.True(column.Unique);
+            Assert.False(column.AllowDbNull);
         }
 
-        [TestMethod]
+        [Fact]
         public void DefaultConstructor_ShouldInitializeWithDefaultValues()
         {
             // Act
             var column = new Column();
 
             // Assert
-            Assert.AreEqual(string.Empty, column.ColumnName);
-            Assert.AreEqual(typeof(object), column.DataType);
-            Assert.IsFalse(column.ReadOnly);
-            Assert.IsFalse(column.Unique);
-            Assert.IsTrue(column.AllowDbNull);
-            Assert.AreEqual(-1, column.MaxLength);
-            Assert.AreEqual(string.Empty, column.DefaultValue);
+            Assert.Equal(string.Empty, column.ColumnName);
+            Assert.Equal(typeof(object), column.DataType);
+            Assert.False(column.ReadOnly);
+            Assert.False(column.Unique);
+            Assert.True(column.AllowDbNull);
+            Assert.Equal(-1, column.MaxLength);
+            Assert.Equal(string.Empty, column.DefaultValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void Constructor_WithColumnName_ShouldInitializeWithDefaultValues()
         {
             // Arrange
@@ -54,16 +52,16 @@ namespace Archivum.Tabular.Tests
             var column = new Column(columnName);
 
             // Assert
-            Assert.AreEqual(columnName, column.ColumnName);
-            Assert.AreEqual(typeof(object), column.DataType);
-            Assert.IsFalse(column.ReadOnly);
-            Assert.IsFalse(column.Unique);
-            Assert.IsTrue(column.AllowDbNull);
-            Assert.AreEqual(-1, column.MaxLength);
-            Assert.AreEqual(string.Empty, column.DefaultValue);
+            Assert.Equal(columnName, column.ColumnName);
+            Assert.Equal(typeof(object), column.DataType);
+            Assert.False(column.ReadOnly);
+            Assert.False(column.Unique);
+            Assert.True(column.AllowDbNull);
+            Assert.Equal(-1, column.MaxLength);
+            Assert.Equal(string.Empty, column.DefaultValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void Constructor_WithColumnNameAndDataType_ShouldInitializeWithDefaultValues()
         {
             // Arrange
@@ -74,16 +72,16 @@ namespace Archivum.Tabular.Tests
             var column = new Column(columnName, dataType);
 
             // Assert
-            Assert.AreEqual(columnName, column.ColumnName);
-            Assert.AreEqual(dataType, column.DataType);
-            Assert.IsFalse(column.ReadOnly);
-            Assert.IsFalse(column.Unique);
-            Assert.IsTrue(column.AllowDbNull);
-            Assert.AreEqual(-1, column.MaxLength);
-            Assert.AreEqual(string.Empty, column.DefaultValue);
+            Assert.Equal(columnName, column.ColumnName);
+            Assert.Equal(dataType, column.DataType);
+            Assert.False(column.ReadOnly);
+            Assert.False(column.Unique);
+            Assert.True(column.AllowDbNull);
+            Assert.Equal(-1, column.MaxLength);
+            Assert.Equal(string.Empty, column.DefaultValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void ToString_ShouldReturnCorrectFormat()
         {
             // Arrange
@@ -95,7 +93,7 @@ namespace Archivum.Tabular.Tests
             var result = column.ToString();
 
             // Assert
-            Assert.AreEqual("TestColumn (Int32)", result);
+            Assert.Equal("TestColumn (Int32)", result);
         }
     }
 }
